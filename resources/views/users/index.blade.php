@@ -26,7 +26,7 @@
 		</tr>
 	@foreach ($data as $key => $user)
 	<tr>
-		<td>{{ ++$i }}</td>
+		<td>{{ $key + 1 }}</td>
 		<td>{{ $user->name }}</td>
 		<td>{{ $user->email }}</td>
 		<td>
