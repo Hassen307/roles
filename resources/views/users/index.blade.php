@@ -26,15 +26,17 @@
 		</tr>
 	@foreach ($data as $key => $user)
 	<tr>
+            
 		<td>{{ ++$i }}</td>
 		<td>{{ $user->name }}</td>
 		<td>{{ $user->email }}</td>
 		<td>
-			@if(!empty($user->roles))
-				@foreach($user->roles as $v)
-					<label class="label label-success">{{ $v->display_name }}</label>
-				@endforeach
-			@endif
+                    
+                    
+		
+				
+					<label class="label label-success">{{$user->role->display_name}}</label>
+				
 		</td>
 		<td>
 			<a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>

@@ -26,10 +26,10 @@ class ItemCRUD2Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('ItemCRUD2.create');
-    }
+   //  public function create()
+ //    {
+  //       return view('ItemCRUD2.create');
+ //    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,18 +37,18 @@ class ItemCRUD2Controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+ //    public function store(Request $request)
+  //   {
+   //      $this->validate($request, [
+   //          'title' => 'required',
+    //         'description' => 'required',
+   //      ]);
 
-        Item::create($request->all());
+    //     Item::create($request->all());
 
-        return redirect()->route('itemCRUD2.index')
-                        ->with('success','Item created successfully');
-    }
+   //      return redirect()->route('itemCRUD2.index')
+   //                      ->with('success','Item created successfully');
+   //  }
 
     /**
      * Display the specified resource.
@@ -56,11 +56,11 @@ class ItemCRUD2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $item = Item::find($id);
-        return view('ItemCRUD2.show',compact('item'));
-    }
+  //   public function show($id)
+  //   {
+   //      $item = Item::find($id);
+   //      return view('ItemCRUD2.show',compact('item'));
+  //   }
 
     /**
      * Show the form for editing the specified resource.
@@ -68,11 +68,11 @@ class ItemCRUD2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $item = Item::find($id);
-        return view('ItemCRUD2.edit',compact('item'));
-    }
+  //   public function edit($id)
+  //   {
+  //       $item = Item::find($id);
+  //       return view('ItemCRUD2.edit',compact('item'));
+  //   }
 
     /**
      * Update the specified resource in storage.
@@ -81,18 +81,18 @@ class ItemCRUD2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+  //   public function update(Request $request, $id)
+  //   {
+  //       $this->validate($request, [
+    //         'title' => 'required',
+    //         'description' => 'required',
+    //     ]);
 
-        Item::find($id)->update($request->all());
+   //      Item::find($id)->update($request->all());
 
-        return redirect()->route('itemCRUD2.index')
-                        ->with('success','Item updated successfully');
-    }
+   //      return redirect()->route('itemCRUD2.index')
+   //                      ->with('success','Item updated successfully');
+   //  }
 
     /**
      * Remove the specified resource from storage.
@@ -100,10 +100,10 @@ class ItemCRUD2Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Item::find($id)->delete();
-        return redirect()->route('itemCRUD2.index')
-                        ->with('success','Item deleted successfully');
-    }
+   //  public function destroy($id)
+   //  {
+   //      Item::find($id)->delete();
+    //     return redirect()->route('itemCRUD2.index')
+    //                     ->with('success','Item deleted successfully');
+   //  }
 }
