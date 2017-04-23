@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-         // Create table for storing roles
+        // Create table for storing roles
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -21,43 +21,56 @@ class CreateUsersTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
         });
-
-        
         
         // Create table for storing users
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('role_id')
+                  ->unsigned();
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('roles')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')
+                  ->unique();
             $table->string('password');
-            
             $table->rememberToken();
             $table->timestamps();
         });
         
-         // Create table for storing permissions
+        // Create table for storing permissions
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description')->nullable();
+            $table->string('name')
+                  ->unique();
+            $table->string('display_name')
+                  ->nullable();
+            $table->string('description')
+                  ->nullable();
             $table->timestamps();
         });
 
         // Create table for associating permissions to roles (Many-to-Many)
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->integer('permission_id')->unsigned();
-            $table->integer('role_id')->unsigned();
-
-            $table->foreign('permission_id')->references('id')->on('permissions')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['permission_id', 'role_id']);
+            $table->integer('permission_id')
+                  ->unsigned();
+            $table->integer('role_id')
+                  ->unsigned();
+            $table->foreign('permission_id')
+                  ->references('id')
+                  ->on('permissions')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('roles')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            $table->primary([
+                'permission_id', 'role_id'
+            ]);
         });
     }
 
@@ -70,8 +83,7 @@ class CreateUsersTable extends Migration
     {
         Schema::drop('roles');
         Schema::dropIfExists('users');
-         Schema::drop('permission_role');
+        Schema::drop('permission_role');
         Schema::drop('permissions');
-        
     }
 }
