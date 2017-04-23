@@ -18,9 +18,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $data = User::orderBy('id', 'DESC')->paginate(5);
+
+        return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -63,19 +63,20 @@ class UserController extends Controller
    //  }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function show($id)
+    public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+
+        return view('users.show', compact('user'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -86,18 +87,21 @@ class UserController extends Controller
         $roles = Role::pluck('display_name','id');
         $userRole = $user->role->toArray();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view(
+          'users.edit',
+          compact('user','roles','userRole')
+        );
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function update(Request $request, $id)
-     {
+    public function update(Request $request, $id)
+    {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
@@ -105,16 +109,20 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-         $input = $request->all();
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
-        }else{
-             $input = array_except($input,array('password'));    
-       }
+        $input = $request->all();
 
-         $user = User::find($id);
-         //$id_role=$role->id;
-         $user->update($input);
+        if(!empty($input['password']))
+        { 
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            $input = array_except(
+                $input, array('password')
+            );    
+        }
+
+        $user = User::find($id);
+        //$id_role=$role->id;
+        $user->update($input);
         // DB::table('role_user')->where('user_id',$id)->delete();
 
         
@@ -122,9 +130,9 @@ class UserController extends Controller
        //      $user->attachRole($value);
        // }
 
-         return redirect()->route('users.index')
-                         ->with('success','User updated successfully');
-   }
+        return redirect()->route('users.index')
+                         ->with('success', 'User updated successfully');
+    }
 
     /**
      * Remove the specified resource from storage.

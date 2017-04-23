@@ -11,10 +11,7 @@ class EntrustSetupTables extends Migration
      */
     public function up()
     {
-       
-       
-
-       
+        //
     }
 
     /**
@@ -24,7 +21,6 @@ class EntrustSetupTables extends Migration
      */
     public function down()
     {
-       
-        
+       //
     }
 }
